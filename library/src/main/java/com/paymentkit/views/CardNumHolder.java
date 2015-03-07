@@ -147,4 +147,8 @@ public class CardNumHolder extends FrameLayout {
             mCardNumberEditText.setTextColor(Color.DKGRAY);
         }
     }
+
+    public boolean requestCreditCardFocus() {
+        return mCardNumberEditText.requestFocus();
+    }
 }

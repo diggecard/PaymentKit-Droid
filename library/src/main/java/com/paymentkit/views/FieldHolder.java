@@ -58,6 +58,10 @@ public class FieldHolder extends RelativeLayout {
 		setup();
 	}
 
+    public boolean requestCreditCardFocus() {
+        return mCardHolder.requestFocus();
+    }
+
 	public CVVEditText getCVVEditText() {
 		return mCVVEditText;
 	}
