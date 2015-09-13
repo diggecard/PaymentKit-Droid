@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -202,6 +203,32 @@ public class CardNumEditText extends EditText {
      * invoked when a hardware key event is dispatched to this view.
      * We will make all calls to our input connection.
      */
+    /*private class ZanyKeyListener implements OnKeyListener {
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+            boolean shouldConsume = false;
+            if (event.getAction() == KeyEvent.ACTION_DOWN && mInputConnection != null) {
+                switch (event.getKeyCode()) {
+                    case KeyEvent.KEYCODE_DEL: shouldConsume = mInputConnection.handleDelete(); break;
+                    // On a hardware keyboard IME_ACTION_NEXT will come as an enter key.
+                    case KeyEvent.KEYCODE_ENTER: shouldConsume = mInputConnection.handleNextPress(); break;
+                    case KeyEvent.KEYCODE_BACK: shouldConsume = false;
+                }
+            }
+            // soft-keyboard uses downs while hard uses ups.
+            boolean ronk = shouldConsume || event.getAction() == KeyEvent.ACTION_UP;
+            Log.d(TAG, "ZanyKeyListener shouldConsume = "+shouldConsume+ " event.getAction() = "+event.getAction()+" event.getKeyCode() = "+event.getKeyCode());
+            Log.d(TAG, "event.getKeyCode() == KeyEvent.KEYCODE_BACK: "+(event.getKeyCode() == KeyEvent.KEYCODE_BACK));
+            return true;
+        }
+    }*/
+
+    /**
+     * invoked when a hardware key event is dispatched to this view.
+     * We will make all calls to our input connection.
+     */
     private class ZanyKeyListener implements OnKeyListener {
 
         @Override
@@ -235,7 +262,12 @@ public class CardNumEditText extends EditText {
                     case KeyEvent.KEYCODE_ENTER: shouldConsume = handleNextPress(); break;
                 }
 			}
-			return shouldConsume ? true : super.sendKeyEvent(event);
+            Log.d(TAG, "event.getKeyCode() == KeyEvent.KEYCODE_BACK: "+(event.getKeyCode() == KeyEvent.KEYCODE_BACK));
+
+			boolean ronk = shouldConsume ? true : super.sendKeyEvent(event);
+            Log.d(TAG, "shouldConsume ? true : super.sendKeyEvent(event) = "+ronk);
+
+            return true;
 		}
 
         @Override
