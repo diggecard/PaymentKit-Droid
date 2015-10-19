@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = "2.0.0"
-group = "com.seniordev" //"com.kbeanie"
+def version = "2.0.1"
+def group = "com.seniordev"
 
 configurations {
     archives {
